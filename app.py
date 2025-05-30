@@ -82,7 +82,7 @@ else:
     st.title("📱 Predicción de Horas de Uso del Teléfono")
 
     # Ruta fija al CSV
-data_path = 'data/form_uso_telefono.csv'
+    data_path = 'data/form_uso_telefono.csv'
     try:
         df = pd.read_csv(data_path, encoding='latin1')
     except FileNotFoundError:
@@ -90,7 +90,7 @@ data_path = 'data/form_uso_telefono.csv'
         st.stop()
 
     # Preprocesamiento
-df = df.drop(columns=['Marca temporal', 'Columna 6'], errors='ignore')
+    df = df.drop(columns=['Marca temporal', 'Columna 6'], errors='ignore')
     df.columns = [
         'redes_sociales', 'tiene_juegos', 'num_juegos',
         'freq_academicas', 'horas_texto',
