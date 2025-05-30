@@ -137,7 +137,7 @@ else:
     st.dataframe(coef_df)
 
     st.markdown("---")
-    st.subheader("🔮 Predicción manual")
+    st.subheader("🔮 Predicción")
 
     redes = st.number_input("¿Cuántas redes sociales utilizas regularmente?", 0, 10, 3)
     tiene_juegos_str = st.selectbox("¿Tienes juegos instalados en tú télefono?", ("Si", "No"))
