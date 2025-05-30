@@ -139,14 +139,14 @@ else:
     st.markdown("---")
     st.subheader("🔮 Predicción manual")
 
-    redes = st.number_input("¿Cuántas redes sociales?", 0, 10, 3)
-    tiene_juegos_str = st.selectbox("¿Tienes juegos instalados?", ("Si", "No"))
+    redes = st.number_input("¿Cuántas redes sociales utilizas regularmente?", 0, 10, 3)
+    tiene_juegos_str = st.selectbox("¿Tienes juegos instalados en tú télefono?", ("Si", "No"))
     num_juegos = 0
     if tiene_juegos_str == "Si":
-        num_juegos = st.number_input("¿Cuántos juegos?", 0, 20, 1)
-    freq_acad = st.slider("Frecuencia uso académico (1–5)", 1, 5, 3)
-    freq_canvas = st.slider("Frecuencia uso Canvas (1–5)", 1, 5, 3)
-    freq_email = st.slider("Frecuencia uso Email (1–5)", 1, 5, 3)
+        num_juegos = st.number_input("¿Cuántos juegos tienes instalados?", 0, 20, 1)
+    freq_acad = st.slider("¿Con qué frecuencia usas el teléfono para actividades académicas?", 1, 5, 3)
+    freq_canvas = st.slider("¿Con qué frecuencia utilizas tu teléfono para acceder a la plataforma Canvas?", 1, 5, 3)
+    freq_email = st.slider("¿Con qué frecuencia utilizas tu teléfono para revisar tu correo electrónico institucional o personal?", 1, 5, 3)
 
     if st.button("Predecir horas de uso"):
         tiene_juegos_val = 1 if tiene_juegos_str == "Si" else 0
