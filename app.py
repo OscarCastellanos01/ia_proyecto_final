@@ -113,24 +113,21 @@ else:
         st.error("El dataset contiene valores faltantes (NaN). Revisa la limpieza de datos.")
         st.stop()
 
-    # --- K-Fold Cross Validation ---
-    from sklearn.linear_model import LinearRegression
-    from sklearn.model_selection import KFold, cross_val_score
-    from sklearn.metrics import mean_squared_error, r2_score
-
-    kf = KFold(n_splits=5, shuffle=True, random_state=42)
+    # División y entrenamiento
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=42
+    )
     model_tel = LinearRegression()
+    model_tel.fit(X_train, y_train)
 
-    # Evaluación con K-Fold
-    mse_scores = cross_val_score(model_tel, X, y, scoring='neg_mean_squared_error', cv=kf)
-    r2_scores = cross_val_score(model_tel, X, y, scoring='r2', cv=kf)
+    # Evaluación
+    y_pred = model_tel.predict(X_test)
+    mse = mean_squared_error(y_test, y_pred)
+    r2  = r2_score(y_test, y_pred)
 
-    # Entrenamiento final con todos los datos
-    model_tel.fit(X, y)
-
-    st.subheader("📊 Métricas del Modelo con K-Fold (5 pliegues)")
-    st.write(f"**MSE promedio:** {(-mse_scores.mean()):.4f}")
-    st.write(f"**R² promedio:** {r2_scores.mean():.4f}")
+    st.subheader("📊 Métricas del Modelo")
+    st.write(f"**MSE:** {mse:.4f}")
+    st.write(f"**R²:** {r2:.4f}")
 
     coef_df = pd.DataFrame({
         'feature': X.columns,
@@ -153,6 +150,9 @@ else:
 
     if st.button("Predecir horas de uso"):
         tiene_juegos_val = 1 if tiene_juegos_str == "Si" else 0
-        X_new = np.array([[redes, tiene_juegos_val, num_juegos, freq_acad, freq_canvas, freq_email]])
+        X_new = np.array([[
+            redes, tiene_juegos_val, num_juegos,
+            freq_acad, freq_canvas, freq_email
+        ]])
         horas_pred = model_tel.predict(X_new)[0]
         st.success(f"Predicción: **{horas_pred:.2f}** horas al día")
